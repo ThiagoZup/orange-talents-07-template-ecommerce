@@ -4,7 +4,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import br.com.zupacademy.thiago.mercadolivre.controller.validation.UniqueValue;
 import br.com.zupacademy.thiago.mercadolivre.domain.Usuario;
@@ -16,7 +15,7 @@ public class NovoUsuarioForm {
 	@UniqueValue(entityClass = Usuario.class, fieldName = "login", message = "Email já existente no banco de dados")
 	private String login;
 	
-	//senha-limpa
+	//senha limpa
 	@NotBlank
 	@Length(min = 6)
 	private String senha;
@@ -30,7 +29,7 @@ public class NovoUsuarioForm {
 	}
 	
 	public Usuario toModel() {
-		return new Usuario(this.login, new BCryptPasswordEncoder().encode(this.senha));
+		return new Usuario(this.login, this.senha); //senha limpa
 	}
 	
 	
