@@ -2,7 +2,10 @@ package br.com.zupacademy.thiago.mercadolivre.controller;
 
 import java.net.URI;
 
+import javax.transaction.Transactional;
+
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -27,6 +30,7 @@ public class UsuarioControllerTest {
 	
 	@DisplayName("deve validar os atributos e retornar o status apropriado")
 	@ParameterizedTest
+	@Transactional
 	@CsvSource({
 		"zupperson.silva@zup.com,123456,201",
 		",123456,400",
@@ -46,6 +50,18 @@ public class UsuarioControllerTest {
 		.andExpect(MockMvcResultMatchers
 				.status()
 				.is(resultadoEsperado));	
+	}
+	
+	@Test
+	@Transactional
+	public void naoDeveCriarUsuarioComLoginRepetido() throws Exception {
+		URI uri = new URI("/usuarios");
+		
+		String json = "{\"login\":\"zupperson.silva@zup.com\",\"senha\":\"123456\"}";
+
+		mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON));
+		mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
+		.andExpect(MockMvcResultMatchers.status().is(400));
 	}
 
 }
