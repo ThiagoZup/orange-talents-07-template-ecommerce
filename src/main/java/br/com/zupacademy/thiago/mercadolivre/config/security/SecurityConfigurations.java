@@ -49,10 +49,15 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.POST, "/auth").permitAll()
 		.antMatchers(HttpMethod.POST, "/usuarios").permitAll()
+		//.antMatchers(HttpMethod.POST, "/produtos").permitAll()
+		//.antMatchers(HttpMethod.POST, "/categorias").permitAll()
+		//.antMatchers("/h2-console/**").permitAll()
 		.anyRequest().authenticated()
 		.and().csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
+		
+		http.headers().frameOptions().disable();
 	}
 	
 	
