@@ -26,7 +26,7 @@ import br.com.zupacademy.thiago.mercadolivre.domain.Usuario;
 import br.com.zupacademy.thiago.mercadolivre.exception.ForbiddenActionException;
 import br.com.zupacademy.thiago.mercadolivre.exception.ObjectNotFoundException;
 import br.com.zupacademy.thiago.mercadolivre.repository.UsuarioRepository;
-import br.com.zupacademy.thiago.mercadolivre.service.UploaderFake;
+import br.com.zupacademy.thiago.mercadolivre.service.MockUploader;
 
 @RestController
 @RequestMapping(value = "/produtos")
@@ -39,7 +39,7 @@ public class ProdutoController {
 	private UsuarioRepository repository;
 	
 	@Autowired
-	private UploaderFake uploaderFake;
+	private MockUploader uploaderFake;
 	
 	@PostMapping
 	@Transactional

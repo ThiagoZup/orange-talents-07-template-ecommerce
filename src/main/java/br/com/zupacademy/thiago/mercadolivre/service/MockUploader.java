@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component
-public class UploaderFake {
+public class MockUploader {
 
 	public List<String> envia(List<MultipartFile> imagens) {
 		return imagens.stream()
