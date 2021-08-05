@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -125,9 +126,11 @@ public class Produto {
 		return Objects.equals(id, other.id);
 	}
 
-	public void associaImagem(String link) {
-		 ImagemProduto imagem = new ImagemProduto(this, link);	
-		 this.imagens.add(imagem);	 
+	public void associaImagem(List<String> links) {
+		 List<ImagemProduto> imagems = links.stream()
+				 .map(link -> new ImagemProduto(this, link))
+				 .collect(Collectors.toList());
+		 this.imagens.addAll(imagems);	 
 	}
 	
 	

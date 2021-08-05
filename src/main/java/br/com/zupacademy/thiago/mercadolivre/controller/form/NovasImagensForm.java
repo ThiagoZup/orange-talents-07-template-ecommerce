@@ -7,16 +7,16 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class NovasImagensRequest {
+public class NovasImagensForm {
 
 	@NotNull
 	//@Size(min = 1)
 	private List<MultipartFile> imagens = new ArrayList<>();
 	
-	public NovasImagensRequest() {
+	public NovasImagensForm() {
 	}
 
-	public NovasImagensRequest(@NotNull List<MultipartFile> imagens) {
+	public NovasImagensForm(@NotNull List<MultipartFile> imagens) {
 		super();
 		this.imagens = imagens;
 	}
