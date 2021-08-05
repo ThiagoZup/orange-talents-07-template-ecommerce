@@ -2,50 +2,52 @@ package br.com.zupacademy.thiago.mercadolivre.domain;
 
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.URL;
 
 @Entity
-public class Categoria {
+public class ImagemProduto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
-	@Column(unique=true)
-	private String nome;
-	
 	@ManyToOne
-	private Categoria categoriaMae;
+	@NotNull
+	@Valid
+	private Produto produto;
+	
+	@NotBlank
+	@URL
+	private String link;
 	
 	@Deprecated
-	public Categoria() {
+	public ImagemProduto() {
 	}
 
-	public Categoria(@NotBlank String nome) {
-		this.nome = nome;
-	}
-
-	public Categoria getCategoriaMae() {
-		return categoriaMae;
-	}
-
-	public void setCategoriaMae(Categoria categoriaMae) {
-		this.categoriaMae = categoriaMae;
+	public ImagemProduto(@NotNull @Valid Produto produto, @NotBlank @URL String link) {
+		this.produto = produto;
+		this.link = link;
 	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public String getNome() {
-		return nome;
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public String getLink() {
+		return link;
 	}
 
 	@Override
@@ -61,7 +63,9 @@ public class Categoria {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		ImagemProduto other = (ImagemProduto) obj;
 		return Objects.equals(id, other.id);
 	}
+	
+	
 }

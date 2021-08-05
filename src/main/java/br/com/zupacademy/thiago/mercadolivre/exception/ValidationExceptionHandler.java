@@ -21,7 +21,16 @@ public class ValidationExceptionHandler {
 
 	@Autowired
 	private MessageSource messageSource;
+	
 
+	@ExceptionHandler(ForbiddenActionException.class)
+	public ResponseEntity<StandardError> forbiddenAction(ForbiddenActionException e,
+			HttpServletRequest request) {
+
+		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), e.getMessage(), request.getRequestURI());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+	}
+	
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<StandardError> dataIntegrityViolation(DataIntegrityViolationException e,
 			HttpServletRequest request) {

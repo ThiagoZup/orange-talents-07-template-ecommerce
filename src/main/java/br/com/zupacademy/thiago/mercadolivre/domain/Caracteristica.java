@@ -29,6 +29,10 @@ public class Caracteristica {
 	
 	@ManyToOne
 	private Produto produto;
+	
+	@Deprecated
+	public Caracteristica() {
+	}
 
 	public Caracteristica(@NotBlank String nome, @NotBlank @Length(max = 1000) String descricao) {
 		this.nome = nome;

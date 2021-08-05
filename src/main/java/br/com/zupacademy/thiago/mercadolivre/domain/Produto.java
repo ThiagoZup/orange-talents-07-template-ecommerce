@@ -45,18 +45,30 @@ public class Produto {
 	@NotNull
 	@ManyToOne
 	private Categoria categoria;
+	
+	@NotNull
+	@ManyToOne
+	private Usuario dono;
 
 	@OneToMany(mappedBy = "produto",cascade = CascadeType.PERSIST)
 	private List<Caracteristica> caracteristicas = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+	private List<ImagemProduto> imagens = new ArrayList<>();
 
+	@Deprecated
+	public Produto() {
+	}
+	
 	public Produto(@NotBlank String nome, @NotNull @Positive BigDecimal valor, @NotNull @Positive Long quantidade,
-			@NotBlank @Length(max = 1000) String descricao, @NotNull Categoria categoria,
+			@NotBlank @Length(max = 1000) String descricao, @NotNull Categoria categoria, Usuario dono,
 			List<Caracteristica> caracteristicas) {
 		this.nome = nome;
 		this.valor = valor;
 		this.quantidade = quantidade;
 		this.descricao = descricao;
 		this.categoria = categoria;
+		this.dono = dono;
 		this.caracteristicas.addAll(caracteristicas);
 	}
 
@@ -88,6 +100,14 @@ public class Produto {
 		return caracteristicas;
 	}
 
+	public Usuario getDono() {
+		return dono;
+	}
+
+	public List<ImagemProduto> getImagens() {
+		return imagens;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -103,6 +123,11 @@ public class Produto {
 			return false;
 		Produto other = (Produto) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public void associaImagem(String link) {
+		 ImagemProduto imagem = new ImagemProduto(this, link);	
+		 this.imagens.add(imagem);	 
 	}
 	
 	

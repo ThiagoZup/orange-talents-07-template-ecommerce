@@ -18,6 +18,7 @@ import br.com.zupacademy.thiago.mercadolivre.controller.validation.ExistsId;
 import br.com.zupacademy.thiago.mercadolivre.domain.Caracteristica;
 import br.com.zupacademy.thiago.mercadolivre.domain.Categoria;
 import br.com.zupacademy.thiago.mercadolivre.domain.Produto;
+import br.com.zupacademy.thiago.mercadolivre.domain.Usuario;
 import br.com.zupacademy.thiago.mercadolivre.exception.DataIntegrityViolationException;
 
 public class NovoProdutoForm {
@@ -70,10 +71,10 @@ public class NovoProdutoForm {
 		return caracteristicas;
 	}
 	
-	public Produto toModel(EntityManager manager) {
+	public Produto toModel(EntityManager manager, Usuario dono) {
 		Categoria categoria = manager.find(Categoria.class, categoriaId);
 		List<Caracteristica> novasCaracteristicas = caracteristicas.stream().map(caracteristica -> caracteristica.toModel()).collect(Collectors.toList());
-		Produto produto = new Produto(nome, valor, quantidade, descricao, categoria, novasCaracteristicas);
+		Produto produto = new Produto(nome, valor, quantidade, descricao, categoria, dono,novasCaracteristicas);
 		HashSet<String> nomesCaracteristicas = new HashSet<>();
 		for(Caracteristica novaCaracteristica : novasCaracteristicas) {
 			novaCaracteristica.setProduto(produto);
