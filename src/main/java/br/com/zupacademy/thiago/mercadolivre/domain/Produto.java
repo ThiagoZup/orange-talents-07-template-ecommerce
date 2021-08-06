@@ -56,7 +56,13 @@ public class Produto {
 	
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
 	private List<ImagemProduto> imagens = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "produto")
+	private List<Opiniao> opinioes = new ArrayList<>();
 
+	@OneToMany(mappedBy = "produto")
+	private List<Pergunta> perguntas = new ArrayList<>();
+	
 	@Deprecated
 	public Produto() {
 	}
@@ -107,6 +113,14 @@ public class Produto {
 
 	public List<ImagemProduto> getImagens() {
 		return imagens;
+	}
+
+	public List<Opiniao> getOpinioes() {
+		return opinioes;
+	}
+
+	public List<Pergunta> getPerguntas() {
+		return perguntas;
 	}
 
 	@Override
