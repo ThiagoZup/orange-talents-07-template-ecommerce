@@ -122,6 +122,16 @@ public class Produto {
 	public List<Pergunta> getPerguntas() {
 		return perguntas;
 	}
+	
+	public boolean abataEstoque(@Positive int quantidade) {
+		if(quantidade <= this.quantidade) {
+			this.quantidade-=quantidade;
+			return true;
+		}
+		
+		return false;
+	}
+	
 
 	@Override
 	public int hashCode() {

@@ -47,7 +47,7 @@ public class AdicionaPerguntaController {
 		
 		Pergunta pergunta = form.toModel(produto, interessado);
 		manager.persist(pergunta);
-		emailSender.envia(pergunta);
+		emailSender.enviaPergunta(pergunta);
 		
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(pergunta.getId()).toUri();
