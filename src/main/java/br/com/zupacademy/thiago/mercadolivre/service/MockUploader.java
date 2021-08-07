@@ -3,10 +3,10 @@ package br.com.zupacademy.thiago.mercadolivre.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-@Component
+@Service
 public class MockUploader {
 
 	public List<String> envia(List<MultipartFile> imagens) {
